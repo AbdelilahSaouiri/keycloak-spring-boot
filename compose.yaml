@@ -1,0 +1,12 @@
+services:
+  mariadb:
+    image: 'mariadb:latest'
+    environment:
+      - 'MARIADB_DATABASE=db-users'
+      - 'MARIADB_PASSWORD=abdelilah'
+      - 'MARIADB_ROOT_PASSWORD=abdelilah12'
+      - 'MARIADB_USER=abdelilah'
+    ports:
+      - '3306:3306'
+    volumes:
+      - '/home/abdelilah/mariadb_data:/var/lib/mysql'
