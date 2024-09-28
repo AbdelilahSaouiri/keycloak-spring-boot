@@ -5,6 +5,7 @@ import com.example.demo.dto.UserResponseDto;
 import com.example.demo.entity.AppUser;
 import com.example.demo.repository.AppUserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,5 +47,36 @@ public class UserServiceImpl {
                 .lastName(saved.getLastName())
                 .email(saved.getEmail())
                 .build();
+    }
+
+    public UserResponseDto updateUser(UserRequestDto userRequestDto) {
+        AppUser existUser = appUserRepository.findByEmailIgnoreCase(userRequestDto.email());
+        if(existUser!=null) {
+            existUser.setFirstName(userRequestDto.firstName());
+            existUser.setLastName(userRequestDto.lastName());
+            existUser.setEmail(userRequestDto.email());
+            AppUser saved = appUserRepository.save(existUser);
+            return UserResponseDto.builder()
+                    .firstName(saved.getFirstName())
+                    .lastName(saved.getLastName())
+                    .email(saved.getEmail())
+                    .build();
+        }
+        return null;
+    }
+
+    public void deleteUser(String userId){
+        AppUser byUserId = appUserRepository.findByUserId(userId);
+         appUserRepository.delete(byUserId);
+    }
+
+    public UserResponseDto consulterUser(String userId) {
+        AppUser byUserId = appUserRepository.findByUserId(userId);
+        return UserResponseDto.builder()
+                .firstName(byUserId.getFirstName())
+                .lastName(byUserId.getLastName())
+                .email(byUserId.getEmail())
+                .build();
+
     }
 }

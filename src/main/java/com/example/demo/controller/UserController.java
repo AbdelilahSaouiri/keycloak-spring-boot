@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Struct;
 import java.util.List;
 
 @RestController
@@ -33,4 +34,26 @@ public class UserController {
         UserResponseDto userResponseDto = userService.addNewUser(userRequestDto);
         return ResponseEntity.ok(userResponseDto);
     }
+
+    @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<?>  updateUser(@RequestBody UserRequestDto userRequestDto){
+        UserResponseDto userResponseDto = userService.updateUser(userRequestDto);
+        return ResponseEntity.ok(userResponseDto);
+    }
+
+    @GetMapping("/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?>  consulterUser(@PathVariable(name="userId" ,required = true) String userId){
+                     UserResponseDto userResponseDto=userService.consulterUser(userId);
+                     return ResponseEntity.ok(userResponseDto);
+    }
+
+    @DeleteMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> deleteUser(@RequestParam(name="userId",required = true) String userId){
+         userService.deleteUser(userId);
+         return ResponseEntity.noContent().build();
+    }
+
 }
