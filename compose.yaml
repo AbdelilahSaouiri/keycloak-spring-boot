@@ -4,8 +4,8 @@ services:
     environment:
       - 'MARIADB_DATABASE=db-users'
       - 'MARIADB_PASSWORD=abdelilah'
-      - 'MARIADB_ROOT_PASSWORD=abdelilah12'
-      - 'MARIADB_USER=abdelilah'
+      - 'MARIADB_ROOT_PASSWORD='
+      - 'MARIADB_USER='
     ports:
       - '3306:3306'
     volumes:
