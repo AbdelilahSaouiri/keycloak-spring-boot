@@ -1,6 +1,6 @@
 services:
   mariadb:
-    image: 'mariadb:latest'
+    image: 'mariadb:latest' 
     environment:
       - 'MARIADB_DATABASE=db-users'
       - 'MARIADB_PASSWORD=abdelilah'
